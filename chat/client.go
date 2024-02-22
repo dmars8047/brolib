@@ -222,8 +222,35 @@ func (c *BroChatUserClient) GetChannelManifest(authInfo *AuthInfo, channelId str
 	return &channel, nil
 }
 
+type GetChannelMessagesOption func(*getChannelMessagesOptions)
+
+type getChannelMessagesOptions struct {
+	values map[string]string
+}
+
+// An option for the GetChannelMessages method which will pull the messages before the given chat message ID.
+func BeforeMessageOption(value string) GetChannelMessagesOption {
+	return func(o *getChannelMessagesOptions) {
+		o.values["before-msg"] = value
+	}
+}
+
+// Sets the page option. This will determine which page to start the channel message query from.
+func PageOption(page uint64) GetChannelMessagesOption {
+	return func(o *getChannelMessagesOptions) {
+		o.values["page"] = strconv.FormatUint(page, 10)
+	}
+}
+
+// Sets the pageSize option. This will determine the size of each page. Anything over 100 will just be set to 100.
+func PageSizeOption(pageSize uint64) GetChannelMessagesOption {
+	return func(o *getChannelMessagesOptions) {
+		o.values["page-size"] = strconv.FormatUint(pageSize, 10)
+	}
+}
+
 // Get Channel Messages
-func (c *BroChatUserClient) GetChannelMessages(authInfo *AuthInfo, channelId string) ([]ChatMessage, error) {
+func (c *BroChatUserClient) GetChannelMessages(authInfo *AuthInfo, channelId string, options ...GetChannelMessagesOption) ([]ChatMessage, error) {
 	base, err := url.Parse(c.baseUrl)
 
 	if err != nil {
@@ -237,6 +264,24 @@ func (c *BroChatUserClient) GetChannelMessages(authInfo *AuthInfo, channelId str
 	}
 
 	resolvedUrl := base.ResolveReference(suffix)
+
+	// Default options
+	opts := &getChannelMessagesOptions{
+		values: make(map[string]string, 0),
+	}
+
+	// Apply user-defined options
+	for _, opt := range options {
+		opt(opts)
+	}
+
+	queryParams := resolvedUrl.Query()
+
+	for key, val := range opts.values {
+		queryParams.Set(key, val)
+	}
+
+	resolvedUrl.RawQuery = queryParams.Encode()
 
 	// Create a new request using http
 	req, err := http.NewRequest("GET", resolvedUrl.String(), nil)
