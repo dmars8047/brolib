@@ -44,6 +44,26 @@ type ChatMessageRequest struct {
 	Content string `json:"content"`
 }
 
+// Describes a Macros Type.
+type MacroType string
+
+const (
+	// The Dice Roll Macro.
+	MACRO_TYPE_ROLL MacroType = "dice-roll"
+	// The Coin Flip Macro.
+	MACRO_TYPE_FLIP MacroType = "coin-flip"
+)
+
+// Represents an unprocessed chat macro.
+type ChatMacroRequest struct {
+	// The ID of the channel that the message is being sent in.
+	ChannelId string `json:"channel_id"`
+	// The type of the macro.
+	Type MacroType `json:"type"`
+	// The macro arguments. The content of the params will be different depending on the type.
+	Arguments []string `json:"arguments"`
+}
+
 // A request to set the users active channel.
 type SetActiveChannelRequest struct {
 	// The ID of the channel the user wants to make active.
