@@ -63,4 +63,6 @@ const (
 	FEED_MESSAGE_TYPE_FRIEND_REQUEST_ACCEPTED FeedMessageType = "brochat:feed_message_type:friend_request_accepted"
 	// Room created message type
 	FEED_MESSAGE_TYPE_ROOM_CREATED FeedMessageType = "brochat:feed_message_type:room_created"
+	// User joined a room message type
+	FEED_MESSAGE_TYPE_USER_JOINED_ROOM FeedMessageType = "brochat:feed_message_type:user_joined_room"
 )
