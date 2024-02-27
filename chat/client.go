@@ -431,17 +431,18 @@ func (c *BroChatUserClient) AcceptFriendRequest(authInfo *AuthInfo, request *Acc
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusNoContent {
-		if res.StatusCode == http.StatusUnauthorized {
+		switch res.StatusCode {
+		case http.StatusUnauthorized:
 			return errors.New("unauthorized")
-		} else if res.StatusCode == http.StatusForbidden {
+		case http.StatusForbidden:
 			return errors.New("forbidden")
-		} else if res.StatusCode == http.StatusNotFound {
-			return errors.New("user not found or friend request not found")
-		} else if res.StatusCode == http.StatusBadRequest {
+		case http.StatusNotFound:
+			return errors.New("resource not found")
+		case http.StatusBadRequest:
 			return errors.New("bad request")
+		default:
+			return errors.New("unexpected status code")
 		}
-
-		return errors.New("unexpected status code")
 	}
 
 	return nil
