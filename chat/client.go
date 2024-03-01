@@ -447,3 +447,184 @@ func (c *BroChatUserClient) AcceptFriendRequest(authInfo *AuthInfo, request *Acc
 
 	return nil
 }
+
+// Method for getting (public) rooms that the calling user does not already belong to.
+func (c *BroChatUserClient) GetRooms(authInfo *AuthInfo) ([]Room, error) {
+	base, err := url.Parse(c.baseUrl)
+
+	if err != nil {
+		return nil, err
+	}
+
+	suffix, err := url.Parse(GET_ROOMS_URL_SUFFIX)
+
+	if err != nil {
+		return nil, err
+	}
+
+	resolvedUrl := base.ResolveReference(suffix)
+
+	// Create a new request using http
+	req, err := http.NewRequest("GET", resolvedUrl.String(), nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	// add authorization header to the req
+	req.Header.Set("Authorization", authInfo.TokenType+" "+authInfo.AccessToken)
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		if res.StatusCode == http.StatusNotFound {
+			return nil, errors.New("channel not found")
+		} else if res.StatusCode == http.StatusUnauthorized {
+			return nil, errors.New("unauthorized")
+		} else if res.StatusCode == http.StatusForbidden {
+			return nil, errors.New("forbidden")
+		}
+
+		return nil, errors.New("unexpected status code")
+	}
+
+	var rooms []Room = make([]Room, 0)
+
+	err = json.NewDecoder(res.Body).Decode(&rooms)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return rooms, nil
+}
+
+// Creates a room. Note: Users cannot create more than 20 rooms.
+func (c *BroChatUserClient) CreateRoom(authInfo *AuthInfo, request *CreateRoomRequest) (*Room, error) {
+	base, err := url.Parse(c.baseUrl)
+
+	if err != nil {
+		return nil, err
+	}
+
+	suffix, err := url.Parse(CREATE_ROOM_URL_SUFFIX)
+
+	if err != nil {
+		return nil, err
+	}
+
+	resolvedUrl := base.ResolveReference(suffix)
+
+	requestBodyBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPost, resolvedUrl.String(), bytes.NewReader(requestBodyBytes))
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Set authorization header to the req
+	req.Header.Set("Authorization", authInfo.TokenType+" "+authInfo.AccessToken)
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusCreated {
+		if res.StatusCode == http.StatusUnauthorized {
+			return nil, errors.New("unauthorized")
+		} else if res.StatusCode == http.StatusForbidden {
+			return nil, errors.New("forbidden")
+		} else if res.StatusCode == http.StatusNotFound {
+			return nil, errors.New("user not found")
+		} else if res.StatusCode == http.StatusConflict {
+			return nil, errors.New("friend request already exists or users are already a friend")
+		} else if res.StatusCode == http.StatusBadRequest {
+			return nil, errors.New("bad request")
+		}
+
+		return nil, errors.New("unexpected status code")
+	}
+
+	var room Room = Room{}
+
+	err = json.NewDecoder(res.Body).Decode(&room)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &room, nil
+}
+
+func (c *BroChatUserClient) JoinRoom(authInfo *AuthInfo, roomId string) error {
+	base, err := url.Parse(c.baseUrl)
+
+	if err != nil {
+		return err
+	}
+
+	suffix, err := url.Parse(strings.Replace(JOIN_ROOM_URL_SUFFIX, ":roomId", roomId, 1))
+
+	if err != nil {
+		return err
+	}
+
+	resolvedUrl := base.ResolveReference(suffix)
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, resolvedUrl.String(), nil)
+
+	if err != nil {
+		return err
+	}
+
+	// Set authorization header to the req
+	req.Header.Set("Authorization", authInfo.TokenType+" "+authInfo.AccessToken))
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return err
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		switch res.StatusCode {
+		case http.StatusUnauthorized:
+			return errors.New("unauthorized")
+		case http.StatusForbidden:
+			return errors.New("forbidden")
+		case http.StatusNotFound:
+			return errors.New("resource not found")
+		case http.StatusBadRequest:
+			return errors.New("bad request")
+		default:
+			return errors.New("unexpected status code")
+		}
+	}
+
+	return nil
+}
