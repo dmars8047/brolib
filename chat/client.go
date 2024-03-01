@@ -600,7 +600,7 @@ func (c *BroChatUserClient) JoinRoom(authInfo *AuthInfo, roomId string) error {
 	}
 
 	// Set authorization header to the req
-	req.Header.Set("Authorization", authInfo.TokenType+" "+authInfo.AccessToken))
+	req.Header.Set("Authorization", authInfo.TokenType+" "+authInfo.AccessToken)
 
 	// Send req using http Client
 	res, err := c.httpClient.Do(req)
