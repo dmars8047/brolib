@@ -9,7 +9,7 @@ const (
 	ACCEPT_FRIEND_REQUEST_URL_SUFFIX = "/api/brochat/friends/accept-friend-request"
 	GET_ROOMS_URL_SUFFIX             = "/api/brochat/rooms"
 	CREATE_ROOM_URL_SUFFIX           = "/api/brochat/rooms"
-	JOIN_ROOM_URL_SUFFIX             = "/api/brochat/rooms/:roomId"
+	JOIN_ROOM_URL_SUFFIX             = "/api/brochat/rooms/:roomId/join"
 )
 
 type RelationshipType uint8
