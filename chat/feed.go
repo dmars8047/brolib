@@ -87,3 +87,9 @@ type FriendRequestAcceptedEvent struct {
 	// The ID of the channel for direct message communication between the users.
 	DirectMessageChannel string `json:"direct_message_channel"`
 }
+
+// Represents an event when the user's profile has been updated. This indicates that the user should refresh their profile in thier local state.
+type UserProfileUpdatedEvent struct {
+	// The reason for the update.
+	Reason string `json:"reason"`
+}

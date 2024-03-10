@@ -66,4 +66,6 @@ const (
 	FEED_MESSAGE_TYPE_ROOM_CREATED FeedMessageType = "brochat:feed_message_type:room_created"
 	// User joined a room message type
 	FEED_MESSAGE_TYPE_USER_JOINED_ROOM FeedMessageType = "brochat:feed_message_type:user_joined_room"
+	// The users profile has been updated. This indicates that the user should refresh their profile in thier local state.
+	FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED FeedMessageType = "brochat:feed_message_type:user_profile_updated"
 )
