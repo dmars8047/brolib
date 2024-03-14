@@ -91,5 +91,5 @@ type FriendRequestAcceptedEvent struct {
 // Represents an event when the user's profile has been updated. This indicates that the user should refresh their profile in thier local state.
 type UserProfileUpdatedEvent struct {
 	// The reason for the update.
-	Reason string `json:"reason"`
+	UpdateCode UserProfileUpdateCode `json:"reason"`
 }
