@@ -74,7 +74,7 @@ type UserProfileUpdateCode uint8
 
 const (
 	// The users rooms have been updated.
-	USER_PROFILE_UPDATE_REASON_ADDED_TO_ROOM UserProfileUpdateCode = 0x1
+	USER_PROFILE_UPDATE_CODE_ROOM_UPDATE UserProfileUpdateCode = 0x1
 	// The users relationships have been updated.
-	USER_PROFILE_UPDATE_REASON_RELATIONSHIPS_UPDATED UserProfileUpdateCode = 0x2
+	USER_PROFILE_UPDATE_REASON_RELATIONSHIP_UPDATE UserProfileUpdateCode = 0x2
 )
