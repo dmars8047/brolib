@@ -93,3 +93,8 @@ type UserProfileUpdatedEvent struct {
 	// The reason for the update.
 	UpdateCode UserProfileUpdateCode `json:"reason"`
 }
+
+type ChannelUpdatedEvent struct {
+	// The ID of the channel that was updated.
+	ChannelId string `json:"channel_id"`
+}
