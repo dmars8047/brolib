@@ -29,7 +29,7 @@ func makeBroChatClientResult(code BroChatResponseCode, details ...string) BroCha
 
 // Err returns an error if the response code is an error code. Will return nil if the response code is a success code.
 func (c BroChatClientResult) Err() error {
-	if c.ResponseCode > BROCHAT_RESPONSE_CODE_SUCCESS {
+	if c.ResponseCode >= BROCHAT_RESPONSE_CODE_SUCCESS {
 		return nil
 	}
 
