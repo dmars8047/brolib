@@ -28,7 +28,7 @@ func makeBroChatClientResult(code BroChatResponseCode, details ...string) BroCha
 }
 
 // Err returns an error if the response code is an error code. Will return nil if the response code is a success code.
-func (c BroChatClientResult) Error() error {
+func (c BroChatClientResult) Err() error {
 	if c.ResponseCode > BROCHAT_RESPONSE_CODE_SUCCESS {
 		return nil
 	}
@@ -150,7 +150,7 @@ func (c *BroChatClient) GetUser(accessToken string, userId string) BroChatClient
 	}
 
 	// Create a new request using http
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 
 	if err != nil {
 		return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR, User{})
@@ -187,16 +187,16 @@ func (c *BroChatClient) GetUser(accessToken string, userId string) BroChatClient
 type GetUsersOption func(*option)
 
 // An option for the GetUsers method which will exclude the user making the request from the list of users returned.
-func GetUsersOption_ExcludeSelf(value bool) GetUsersOption {
+func GetUsersOption_ExcludeSelf() GetUsersOption {
 	return func(o *option) {
-		o.values = append(o.values, queryParam{key: "exclude-self", value: strconv.FormatBool(value)})
+		o.values = append(o.values, queryParam{key: "exclude-self", value: "true"})
 	}
 }
 
 // An option for the GetUsers method which will exclude the friends of the user making the request from the list of users returned.
-func GetUsersOption_ExcludeFriends(value string) GetUsersOption {
+func GetUsersOption_ExcludeFriends() GetUsersOption {
 	return func(o *option) {
-		o.values = append(o.values, queryParam{key: "before-msg", value: value})
+		o.values = append(o.values, queryParam{key: "before-msg", value: "true"})
 	}
 }
 
@@ -239,7 +239,7 @@ func (c *BroChatClient) GetUsers(accessToken string, options ...GetUsersOption) 
 	}
 
 	// Create a new request using http
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 
 	if err != nil {
 		return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR, make([]UserInfo, 0))
@@ -281,7 +281,7 @@ func (c *BroChatClient) GetChannel(accessToken string, channelId string) BroChat
 	}
 
 	// Create a new request using http
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 
 	if err != nil {
 		return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR, Channel{})
@@ -356,7 +356,7 @@ func (c *BroChatClient) GetChannelMessages(accessToken string, channelId string,
 	}
 
 	// Create a new request using http
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 
 	if err != nil {
 		return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR, make([]ChatMessage, 0))
@@ -484,7 +484,7 @@ func (c *BroChatClient) GetRooms(accessToken string) BroChatClientContentResult[
 	}
 
 	// Create a new request using http
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 
 	if err != nil {
 		return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR, make([]Room, 0))
