@@ -34,6 +34,8 @@ func IsMacro(rawMacro string) (bool, MacroType) {
 		return false, MACRO_TYPE_NONE
 	}
 
+	val = strings.ToLower(val)
+
 	switch val {
 	case "/roll":
 		return true, MACRO_TYPE_ROLL
@@ -49,12 +51,6 @@ type MacroRequest struct {
 	Body string
 }
 
-var ErrInvalidRollCommandToken = errors.New("invalid roll command token")
-
 type MacroParsingError struct {
 	Details string
-}
-
-func (parseErr MacroParsingError) Error() string {
-	return ErrInvalidRollCommandToken.Error()
 }
