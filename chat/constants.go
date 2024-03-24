@@ -70,6 +70,8 @@ const (
 	FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED FeedMessageType = "brochat:feed_message_type:user_profile_updated"
 	// The feed message indicating that a channel has been updated.
 	FEED_MESSAGE_TYPE_CHANNEL_UPDATED FeedMessageType = "brochat:feed_message_type:channel_updated"
+	// The feed message that represents a macro
+	FEED_MESSAGE_TYPE_MACRO FeedMessageType = "brochat:feed_message_type:macro"
 )
 
 type UserProfileUpdateCode uint8
