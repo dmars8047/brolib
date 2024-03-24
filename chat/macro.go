@@ -13,11 +13,13 @@ var (
 type MacroType string
 
 const (
+	// The No Macro Type. Indicates no macro type.
+	MACRO_TYPE_NONE MacroType = "none"
 	// The Dice Roll Macro.
 	MACRO_TYPE_ROLL MacroType = "dice-roll"
 	// The Coin Flip Macro.
 	MACRO_TYPE_FLIP MacroType = "coin-flip"
-	// The Unknown Macro.
+	// The Unknown Macro. Indicates an attempted macro that is not recognized.
 	MACRO_TYPE_UNKNOWN MacroType = "unknown"
 )
 
