@@ -20,22 +20,27 @@ const (
 	// The Coin Flip Macro.
 	MACRO_TYPE_FLIP MacroType = "coin-flip"
 	// The Unknown Macro. Indicates an attempted macro that is not recognized.
-	MACRO_TYPE_UNKNOWN MacroType = "unknown"
+	MACRO_TYPE_UNRECOGNIZED MacroType = "unrecognized"
 )
 
-// GetRawMacroType determines if a string represents a Macro request. If it does the type of the macro will be returned.
+// IsMacro determines if a string represents a Macro request. If it does the type of the macro will be returned.
 // If the string does not represent a Macro request, the MACRO_TYPE_UNKNOWN will be returned.
-func GetRawMacroType(rawMacro string) MacroType {
+func IsMacro(rawMacro string) (bool, MacroType) {
 	// Get the first word of the message
 	val := strings.Split(rawMacro, " ")[0]
 
+	// Check if the first word is a macro
+	if !strings.HasPrefix(val, "/") {
+		return false, MACRO_TYPE_NONE
+	}
+
 	switch val {
 	case "/roll":
-		return MACRO_TYPE_ROLL
+		return true, MACRO_TYPE_ROLL
 	case "/flip":
-		return MACRO_TYPE_FLIP
+		return true, MACRO_TYPE_FLIP
 	default:
-		return MACRO_TYPE_UNKNOWN
+		return true, MACRO_TYPE_UNRECOGNIZED
 	}
 }
 
