@@ -47,8 +47,9 @@ func IsMacro(rawMacro string) (bool, MacroType) {
 }
 
 type MacroRequest struct {
-	Type MacroType
-	Body string
+	Type      MacroType
+	Body      string
+	ChannelId string
 }
 
 type MacroParsingError struct {
