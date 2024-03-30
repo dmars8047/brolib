@@ -196,7 +196,7 @@ func GetUsersOption_ExcludeSelf() GetUsersOption {
 // An option for the GetUsers method which will exclude the friends of the user making the request from the list of users returned.
 func GetUsersOption_ExcludeFriends() GetUsersOption {
 	return func(o *option) {
-		o.values = append(o.values, queryParam{key: "before-msg", value: "true"})
+		o.values = append(o.values, queryParam{key: "exclude-friends", value: "true"})
 	}
 }
 
