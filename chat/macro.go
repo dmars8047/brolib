@@ -19,6 +19,8 @@ const (
 	MACRO_TYPE_ROLL MacroType = "dice-roll"
 	// The Coin Flip Macro.
 	MACRO_TYPE_FLIP MacroType = "coin-flip"
+	// The LLM Prompt Macro.
+	MACRO_TYPE_LLM_PROMPT MacroType = "llm-prompt"
 	// The Unknown Macro. Indicates an attempted macro that is not recognized.
 	MACRO_TYPE_UNRECOGNIZED MacroType = "unrecognized"
 )
@@ -41,6 +43,8 @@ func IsMacro(rawMacro string) (bool, MacroType) {
 		return true, MACRO_TYPE_ROLL
 	case "/flip":
 		return true, MACRO_TYPE_FLIP
+	case "/llm-prompt":
+		return true, MACRO_TYPE_LLM_PROMPT
 	default:
 		return true, MACRO_TYPE_UNRECOGNIZED
 	}
