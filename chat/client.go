@@ -568,6 +568,49 @@ func (c *BroChatClient) CreateRoom(accessToken string, request CreateRoomRequest
 	return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_SUCCESS, room)
 }
 
+// UpdateRoom updates a room.
+func (c *BroChatClient) UpdateRoom(accessToken string, roomId string, request UpdateRoomRequest) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, strings.Replace(UPDATE_ROOM_URL_SUFFIX, ":roomId", roomId, 1))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	requestBodyBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewReader(requestBodyBytes))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Set authorization header to the req
+	req.Header.Set("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return handleHttpRequestError(err)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
+}
+
 // JoinRoom joins a user to a room.
 func (c *BroChatClient) JoinRoom(accessToken string, roomId string) BroChatClientResult {
 	url, err := buildUrl(c.baseUrl, strings.Replace(JOIN_ROOM_URL_SUFFIX, ":roomId", roomId, 1))
