@@ -65,28 +65,6 @@ type Channel struct {
 	Users []UserInfo `json:"users"`
 }
 
-type Room struct {
-	// The Id of the room
-	Id string `json:"id"`
-	// The name of the room
-	Name string `json:"name"`
-	// The rooms channel ID
-	ChannelId string `json:"channel_id"`
-	// ID of the user who owns the room
-	Owner UserInfo `json:"owner"`
-	// Membership Model
-	MembershipModel RoomMembershipModel `json:"membership_model"`
-	// CreatedAtUtc is when the room was created
-	CreatedAtUtc time.Time `json:"created_at_utc"`
-}
-
-type CreateRoomRequest struct {
-	// The name of the room
-	Name string `json:"name"`
-	// The membership model that the room uses
-	MembershipModel string `json:"membership_model"`
-}
-
 type InviteUserToRoomRequest struct {
 	// The ID of the room
 	RoomId string `json:"room_id"`
