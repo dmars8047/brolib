@@ -78,3 +78,10 @@ type ChannelUpdatedEvent struct {
 	// The ID of the channel that was updated.
 	ChannelId string `json:"channel_id"`
 }
+
+type UserOnlinStatusChangedEvent struct {
+	// The ID of the user that changed status.
+	UserId string `json:"user_id"`
+	// The new status of the user.
+	IsOnline bool `json:"is_online"`
+}
