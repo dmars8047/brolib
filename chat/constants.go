@@ -52,9 +52,7 @@ const (
 	// Set active channel message type
 	FEED_MESSAGE_TYPE_SET_ACTIVE_CHANNEL_REQUEST FeedMessageType = "brochat:feed_message_type:set_active_channel_request"
 	// User online message type
-	FEED_MESSAGE_TYPE_USER_ONLINE_EVENT FeedMessageType = "brochat:feed_message_type:user_online_event"
-	// User offline message type
-	FEED_MESSAGE_TYPE_USER_OFFLINE_EVENT FeedMessageType = "brochat:feed_message_type:user_offline_event"
+	FEED_MESSAGE_TYPE_USER_ONLINE_STATUS_UPDATED_EVENT FeedMessageType = "brochat:feed_message_type:user_online_status_updated_event"
 	// Chat notification message type
 	FEED_MESSAGE_TYPE_CHAT_NOTIFICATION FeedMessageType = "brochat:feed_message_type:chat_notification"
 	// Chat message message type
