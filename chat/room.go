@@ -7,6 +7,8 @@ type Room struct {
 	Id string `json:"id"`
 	// The name of the room
 	Name string `json:"name"`
+	// The description of the room
+	Description string `json:"description"`
 	// The rooms channel ID
 	ChannelId string `json:"channel_id"`
 	// ID of the user who owns the room
@@ -20,6 +22,8 @@ type Room struct {
 type CreateRoomRequest struct {
 	// The name of the room
 	Name string `json:"name"`
+	// The description of the room
+	Description string `json:"description"`
 	// The membership model that the room uses
 	MembershipModel string `json:"membership_model"`
 }
@@ -27,4 +31,6 @@ type CreateRoomRequest struct {
 type UpdateRoomRequest struct {
 	// The name of the room
 	Name string `json:"name"`
+	// The description of the room
+	Description string `json:"description"`
 }
