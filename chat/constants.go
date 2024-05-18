@@ -7,10 +7,13 @@ const (
 	GET_CHANNEL_MESSAGES_URL_SUFFIX  = "/api/brochat/channels/:channelId/messages"
 	SEND_FRIEND_REQUEST_URL_SUFFIX   = "/api/brochat/friends/send-friend-request"
 	ACCEPT_FRIEND_REQUEST_URL_SUFFIX = "/api/brochat/friends/accept-friend-request"
+	REJECT_FRIEND_REQUEST_URL_SUFFIX = "/api/brochat/friends/reject-friend-request"
+	UNFRIEND_USER_URL_SUFFIX         = "/api/brochat/friends/unfriend"
 	GET_ROOMS_URL_SUFFIX             = "/api/brochat/rooms"
 	CREATE_ROOM_URL_SUFFIX           = "/api/brochat/rooms"
 	UPDATE_ROOM_URL_SUFFIX           = "/api/brochat/rooms/:roomId"
 	JOIN_ROOM_URL_SUFFIX             = "/api/brochat/rooms/:roomId/join"
+	LEAVE_ROOM_URL_SUFFIX            = "/api/brochat/rooms/:roomId/leave"
 )
 
 type RelationshipType uint8

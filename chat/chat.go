@@ -86,3 +86,13 @@ type AcceptFriendRequestRequest struct {
 	// The ID of the user that sent the friend request.
 	InitiatingUserId string `json:"initiating_user_id"`
 }
+
+type RejectFriendRequestRequest struct {
+	// The ID of the user that sent the friend request.
+	InitiatingUserId string `json:"initiating_user_id"`
+}
+
+type UnfriendRequest struct {
+	// The ID of the user that is being unfriended.
+	UserId string `json:"user_id"`
+}
