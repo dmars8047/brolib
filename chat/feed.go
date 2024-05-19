@@ -85,3 +85,9 @@ type UserOnlinStatusChangedEvent struct {
 	// The new status of the user.
 	IsOnline bool `json:"is_online"`
 }
+
+// An event that indicates that a room has been deleted.
+type RoomDeletedEvent struct {
+	// The ID of the room that was deleted.
+	RoomId string `json:"room_id"`
+}

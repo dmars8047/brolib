@@ -80,53 +80,6 @@ func makeBroChatClientContentResult[T any](code BroChatResponseCode, content T, 
 	}
 }
 
-// BroChatResponseCode is a numeric representation of the error code returned by the BroChat API.
-type BroChatResponseCode uint8
-
-// Server side error codes
-const (
-	// Indicates an unhandled error.
-	BROCHAT_RESPONSE_CODE_UNHANDLED_ERROR BroChatResponseCode = iota
-	// Indicates a forbidden operation error. This means the user does not have permission to perform the operation.
-	BROCHAT_RESPONSE_CODE_FORBIDDEN_ERROR
-	// Indicates a validation error. This means the associated request parameters were invalid.
-	BROCHAT_RESPONSE_CODE_VALIDATION_ERROR
-	// Indicates a request body parsing error. This means the request body could not be parsed.
-	BROCHAT_RESPONSE_CODE_REQUEST_PARSE_ERROR
-	// Indicates a not found error. This means the requested resource was not found.
-	BROCHAT_RESPONSE_CODE_NOT_FOUND_ERROR
-	// Indicates a data conflict error. This means the request could not be completed due to a conflict with the current state of the resource.
-	BROCHAT_RESPONSE_CODE_DATA_CONFLICT_ERROR
-	// Indicates an invalid operation error. This means the requested operation is invalid. Example: Trying to become friends with yourself.
-	BROCHAT_RESPONSE_CODE_INVALID_OPERATION
-	// Indicates an unauthorized operation error. This means the user is not authorized to perform the requested operation.
-	BROCHAT_RESPONSE_CODE_UNAUTHORIZED_ERROR
-)
-
-// Client side error codes
-const (
-	// Indicates an invalid host address error. This means the address that the client is trying to connect to is invalid.
-	BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS = iota + 64
-	// Timeout error. This indicates that the BroChat API did not respond in a timely manner.
-	BROCHAT_RESPONSE_CODE_CONNECTION_TIMEOUT_ERROR
-	// Indicates the request content was not formatted properly.
-	BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR
-	// Indicates that the response from the server was unexpected and could not be parsed.
-	BROCHAT_RESPONSE_CODE_UNEXEPECTED_RESPONSE_ERROR
-	// Indicates a generic request error.
-	BROCHAT_RESPONSE_CODE_GENERIC_REQUEST_ERROR
-	// Indicates a generic connection error.
-	BROCHAT_RESPONSE_CODE_GENERIC_CONNECTION_ERROR
-)
-
-// Success codes
-const (
-	// Succese code 128 indicates a successful operation.
-	BROCHAT_RESPONSE_CODE_SUCCESS BroChatResponseCode = iota + 128
-	// Success code 256 indicates a succesful operation with no content.
-	BROCHAT_RESPONSE_CODE_NO_CONTENT
-)
-
 // BroChatClient is a client for the BroChat API.
 type BroChatClient struct {
 	httpClient *http.Client

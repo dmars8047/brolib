@@ -1,0 +1,39 @@
+User Profile Events
+
+room update event
+relationship update event
+
+FeedMessageTypes Emitted By The Worker
+
+- FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED
+
+FeedMessageTypes Received by The Worker
+
+- FEED_MESSAGE_TYPE_CHAT_MESSAGE
+- FEED_MESSAGE_TYPE_ROOM_CREATED
+- FEED_MESSAGE_TYPE_FRIEND_REQUEST_ACCEPTED
+- FEED_MESSAGE_TYPE_USER_ONLINE_STATUS_UPDATED_EVENT
+
+FeedMessageTypes Received By API
+
+- FEED_MESSAGE_TYPE_CHAT_MESSAGE_REQUEST
+- FEED_MESSAGE_TYPE_MACRO_REQUEST
+- FEED_MESSAGE_TYPE_SET_ACTIVE_CHANNEL_REQUEST
+
+FeedMessageTypes Emitted By API
+
+(Written to ws conn)
+- FEED_MESSAGE_TYPE_CHANNEL_UPDATED 
+- FEED_MESSAGE_TYPE_CHAT_MESSAGE
+
+(Emitted during request processing)
+- FEED_MESSAGE_TYPE_ROOM_CREATED -> Worker
+- FEED_MESSAGE_TYPE_FRIEND_REQUEST_RECIEVED -> receiving user
+- FEED_MESSAGE_TYPE_CHANNEL_UPDATED -> target user (when joining so active manifests can be updated)
+- FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED -> target user
+- FEED_MESSAGE_TYPE_FRIEND_REQUEST_ACCEPTED -> Worker, accepting user, initiating user
+
+
+Problem Statement
+
+FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED is not going to fly on the web client. Having the website refresh all data points is going to be too jarring for the user every time a user update is detected.
