@@ -61,8 +61,6 @@ const (
 	FEED_MESSAGE_TYPE_CHAT_NOTIFICATION FeedMessageType = "brochat:feed_message_type:chat_notification"
 	// Chat message message type
 	FEED_MESSAGE_TYPE_CHAT_MESSAGE FeedMessageType = "brochat:feed_message_type:chat_message"
-	// Friend Request recieved type
-	FEED_MESSAGE_TYPE_FRIEND_REQUEST_RECIEVED FeedMessageType = "brochat:feed_message_type:friend_request_recieved"
 	// Friend Request accepted type
 	FEED_MESSAGE_TYPE_FRIEND_REQUEST_ACCEPTED FeedMessageType = "brochat:feed_message_type:friend_request_accepted"
 	// Room created message type
