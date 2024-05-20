@@ -28,12 +28,24 @@ FeedMessageTypes Emitted By API
 
 (Emitted during request processing)
 - FEED_MESSAGE_TYPE_ROOM_CREATED -> Worker
-- FEED_MESSAGE_TYPE_FRIEND_REQUEST_RECIEVED -> receiving user
+- FEED_MESSAGE_TYPE_FRIEND_REQUEST_RECIEVED -> receiving user (Not used)
 - FEED_MESSAGE_TYPE_CHANNEL_UPDATED -> target user (when joining so active manifests can be updated)
 - FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED -> target user
 - FEED_MESSAGE_TYPE_FRIEND_REQUEST_ACCEPTED -> Worker, accepting user, initiating user
 
 
+Events that the BroTerm Client recieves
+
+- FEED_MESSAGE_TYPE_CHAT_NOTIFICATION (not yet)
+- FEED_MESSAGE_TYPE_CHAT_MESSAGE
+- FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED
+- FEED_MESSAGE_TYPE_CHANNEL_UPDATED
+- FEED_MESSAGE_TYPE_USER_ONLINE_STATUS_UPDATED_EVENT (not yet)
+
 Problem Statement
 
 FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED is not going to fly on the web client. Having the website refresh all data points is going to be too jarring for the user every time a user update is detected.
+
+Solution
+
+Add a payload/event_data to the FEED_MESSAGE_TYPE_USER_PROFILE_UPDATED feed message content.

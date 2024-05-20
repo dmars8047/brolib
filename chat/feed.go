@@ -15,7 +15,7 @@ type FeedMessage struct {
 }
 
 // Creates a new FeedMessage. Sets the content as marshaled json bytes and sets the appropriate JSON content type.
-func NewFeedMessageJSON(messageType FeedMessageType, content interface{}) (*FeedMessage, error) {
+func NewFeedMessage(messageType FeedMessageType, content interface{}) (*FeedMessage, error) {
 	contentBytes, err := json.Marshal(content)
 
 	if err != nil {
@@ -27,6 +27,24 @@ func NewFeedMessageJSON(messageType FeedMessageType, content interface{}) (*Feed
 		Content:     contentBytes,
 		Type:        messageType,
 	}, nil
+}
+
+// Creates a new FeedMessage. Sets the content as marshaled json bytes and sets the appropriate JSON content type. Returns the bytes of the message ready to be sent over the wire.
+// Example Usage: NewFeedMessageBytes(chat.FEED_MESSAGE_TYPE_CHAT_MESSAGE_REQUEST, chat.ChatMessageRequest{ChannelId: "123", Content: "Hello World"})
+func NewFeedMessageBytes(messageType FeedMessageType, content interface{}) ([]byte, error) {
+	message, err := NewFeedMessage(messageType, content)
+
+	if err != nil {
+		return nil, err
+	}
+
+	contentBytes, err := json.Marshal(message)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return contentBytes, nil
 }
 
 // A notification that a chat message has been recieved.
@@ -68,12 +86,6 @@ type FriendRequestAcceptedEvent struct {
 	DirectMessageChannel string `json:"direct_message_channel"`
 }
 
-// Represents an event when the user's profile has been updated. This indicates that the user should refresh their profile in thier local state.
-type UserProfileUpdatedEvent struct {
-	// The reason for the update.
-	UpdateCode UserProfileUpdateCode `json:"reason"`
-}
-
 type ChannelUpdatedEvent struct {
 	// The ID of the channel that was updated.
 	ChannelId string `json:"channel_id"`
@@ -90,4 +102,54 @@ type UserOnlinStatusChangedEvent struct {
 type RoomDeletedEvent struct {
 	// The ID of the room that was deleted.
 	RoomId string `json:"room_id"`
+}
+
+// ********************
+// User Profile Feed Message Events
+// ********************
+
+// User profile event for USER_PROFILE_UPDATE_CODE_ROOM_UPDATE
+type UserProfileUpdatedEventRoomUpdate struct {
+	// The ID of the room that was updated.
+	Room Room `json:"room"`
+}
+
+// User profile event for USER_PROFILE_UPDATE_CODE_ROOM_ADDED
+type UserProfileUpdatedEventRoomAdded struct {
+	// The ID of the room that was added.
+	Room Room `json:"room"`
+}
+
+// User profile event for USER_PROFILE_UPDATE_CODE_ROOM_REMOVED
+type UserProfileUpdatedEventRoomRemoved struct {
+	// The ID of the room that was removed.
+	RoomId string `json:"room_id"`
+	// The reason the user was removed from the room.
+	Reason string `json:"reason"`
+}
+
+// User profile event for USER_PROFILE_UPDATE_REASON_RELATIONSHIP_UPDATE
+type UserProfileUpdatedEventRelationshipUpdate struct {
+	// The relationship that was updated. In its updated state.
+	Relationship UserRelationship `json:"relationship"`
+	// The reason the relationship was updated.
+	Reason string `json:"reason"`
+}
+
+// User profile event for USER_PROFILE_UPDATE_CODE_RELATIONSHIP_ADDED
+type UserProfileUpdatedEventRelationshipAdded struct {
+	// The new relationship.
+	Relationship UserRelationship `json:"relationship"`
+	// The reason the relationship was updated.
+	Reason string `json:"reason"`
+}
+
+// User profile event for USER_PROFILE_UPDATE_CODE_RELATIONSHIP_REMOVED
+type UserProfileUpdatedEventRelationshipRemoved struct {
+	// The ID of the user who the removed relationship was with.
+	UserId string `json:"user_id"`
+	// The name of the user who the removed relationship was with.
+	Username string `json:"username"`
+	// The reason the relationship was removed.
+	Reason string `json:"reason"`
 }
