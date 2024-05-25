@@ -148,8 +148,6 @@ type UserRelationshipsAddedEvent struct {
 type UserRelationshipsRemovedEvent struct {
 	// The ID of the user who the removed relationship was with.
 	UserIds []string `json:"user_id"`
-	// The name of the user who the removed relationship was with.
-	Username string `json:"username"`
 	// The reason the relationship was removed.
 	Reason string `json:"reason"`
 }
