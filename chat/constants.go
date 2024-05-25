@@ -71,18 +71,18 @@ const (
 	FEED_MESSAGE_TYPE_MACRO_REQUEST FeedMessageType = "brochat:feed_message_type:macro_request"
 	// The feed message type that represents a room deletion event.
 	FEED_MESSAGE_TYPE_ROOM_DELETED FeedMessageType = "brochat:feed_message_type:room_deleted"
-	// The feed message type that represents an event where a room a user belongs to has been updated.
-	FEED_MESSAGE_TYPE_USER_ROOM_UPDATED FeedMessageType = "brochat:feed_message_type:user_room_updated"
-	// The feed message type that represents an event where a user has been added to a room.
-	FEED_MESSAGE_TYPE_USER_ROOM_ADDED FeedMessageType = "brochat:feed_message_type:user_room_added"
-	// The feed message type that represents an event where a user has been removed from a room.
-	FEED_MESSAGE_TYPE_USER_ROOM_REMOVED FeedMessageType = "brochat:feed_message_type:user_room_removed"
-	// The feed message type that represents an event where a user relationship has been updated.
-	FEED_MESSAGE_TYPE_USER_RELATIONSHIP_UPDATED FeedMessageType = "brochat:feed_message_type:user_relationship_updated"
-	// The feed message type that represents an event where a user relationship has been added.
-	FEED_MESSAGE_TYPE_USER_RELATIONSHIP_ADDED FeedMessageType = "brochat:feed_message_type:user_relationship_added"
-	// The feed message type that represents an event where a user relationship has been removed.
-	FEED_MESSAGE_TYPE_USER_RELATIONSHIP_REMOVED FeedMessageType = "brochat:feed_message_type:user_relationship_removed"
+	// The feed message type that represents an event where a room (or rooms) a user belongs to has been updated.
+	FEED_MESSAGE_TYPE_USER_ROOMS_UPDATED FeedMessageType = "brochat:feed_message_type:user_rooms_updated"
+	// The feed message type that represents an event where a user has been added to a room (or rooms).
+	FEED_MESSAGE_TYPE_USER_ROOMS_ADDED FeedMessageType = "brochat:feed_message_type:user_rooms_added"
+	// The feed message type that represents an event where a user has been removed from a room (or rooms).
+	FEED_MESSAGE_TYPE_USER_ROOMS_REMOVED FeedMessageType = "brochat:feed_message_type:user_rooms_removed"
+	// The feed message type that represents an event where a user relationship (or relationships) has been updated.
+	FEED_MESSAGE_TYPE_USER_RELATIONSHIPS_UPDATED FeedMessageType = "brochat:feed_message_type:user_relationships_updated"
+	// The feed message type that represents an event where a user relationship (or relationships) has been added.
+	FEED_MESSAGE_TYPE_USER_RELATIONSHIPS_ADDED FeedMessageType = "brochat:feed_message_type:user_relationships_added"
+	// The feed message type that represents an event where a user relationship (or relationships) has been removed.
+	FEED_MESSAGE_TYPE_USER_RELATIONSHIPS_REMOVED FeedMessageType = "brochat:feed_message_type:user_relationships_removed"
 )
 
 // BroChatResponseCode is a numeric representation of the error code returned by the BroChat API.
