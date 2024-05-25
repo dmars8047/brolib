@@ -109,45 +109,45 @@ type RoomDeletedEvent struct {
 // ********************
 
 // User profile event for FEED_MESSAGE_TYPE_USER_ROOM_UPDATED
-type UserRoomUpdatedEvent struct {
+type UserRoomsUpdatedEvent struct {
 	// The ID of the room that was updated.
-	Room Room `json:"room"`
+	Rooms []Room `json:"room"`
 }
 
 // User profile event for FEED_MESSAGE_TYPE_USER_ROOM_ADDED
-type UserRoomAddedEvent struct {
+type UserRoomsAddedEvent struct {
 	// The ID of the room that was added.
-	Room Room `json:"room"`
+	Rooms []Room `json:"room"`
 }
 
 // User profile event for FEED_MESSAGE_TYPE_USER_ROOM_REMOVED
-type UserRoomRemovedEvent struct {
+type UserRoomsRemovedEvent struct {
 	// The ID of the room that was removed.
-	RoomId string `json:"room_id"`
+	RoomIds []string `json:"room_id"`
 	// The reason the user was removed from the room.
 	Reason string `json:"reason"`
 }
 
 // User profile event for FEED_MESSAGE_TYPE_USER_RELATIONSHIP_UPDATED
-type UserRelationshipUpdatedEvent struct {
+type UserRelationshipsUpdatedEvent struct {
 	// The relationship that was updated. In its updated state.
-	Relationship UserRelationship `json:"relationship"`
+	Relationships []UserRelationship `json:"relationship"`
 	// The reason the relationship was updated.
 	Reason string `json:"reason"`
 }
 
 // User profile event for FEED_MESSAGE_TYPE_USER_RELATIONSHIP_ADDED
-type UserRelationshipAddedEvent struct {
+type UserRelationshipsAddedEvent struct {
 	// The new relationship.
-	Relationship UserRelationship `json:"relationship"`
+	Relationships []UserRelationship `json:"relationship"`
 	// The reason the relationship was updated.
 	Reason string `json:"reason"`
 }
 
 // User profile event for FEED_MESSAGE_TYPE_USER_RELATIONSHIP_REMOVED
-type UserRelationshipRemovedEvent struct {
+type UserRelationshipsRemovedEvent struct {
 	// The ID of the user who the removed relationship was with.
-	UserId string `json:"user_id"`
+	UserIds []string `json:"user_id"`
 	// The name of the user who the removed relationship was with.
 	Username string `json:"username"`
 	// The reason the relationship was removed.
