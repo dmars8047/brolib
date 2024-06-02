@@ -5,6 +5,8 @@ type BroChatError struct {
 	Code BroChatResponseCode `json:"error_code"`
 	// The error message
 	ErrorDetails []string `json:"error_details"`
+	// Indicates the marshall-labs application (slug) that the error originated from.
+	SourceApp string `json:"error_source_app"`
 }
 
 // NewErrorResponse creates an ErrorResponse with the given code and message.
@@ -13,6 +15,7 @@ func NewErrorResponse(code BroChatResponseCode, message string) *BroChatError {
 	return &BroChatError{
 		Code:         code,
 		ErrorDetails: []string{message},
+		SourceApp:    "brochat",
 	}
 }
 
@@ -22,5 +25,6 @@ func NewErrorResponseWithDetails(code BroChatResponseCode, details ...string) *B
 	return &BroChatError{
 		Code:         code,
 		ErrorDetails: details,
+		SourceApp:    "brochat",
 	}
 }
