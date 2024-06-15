@@ -96,3 +96,8 @@ type UnfriendRequest struct {
 	// The ID of the user that is being unfriended.
 	UserId string `json:"user_id"`
 }
+
+type CancelFriendRequestRequest struct {
+	// The ID of the user that the friend request was originally sent to.
+	TargetUserId string `json:"target_user_id"`
+}

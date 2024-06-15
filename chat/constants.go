@@ -8,6 +8,7 @@ const (
 	SEND_FRIEND_REQUEST_URL_SUFFIX   = "/api/brochat/friends/send-friend-request"
 	ACCEPT_FRIEND_REQUEST_URL_SUFFIX = "/api/brochat/friends/accept-friend-request"
 	REJECT_FRIEND_REQUEST_URL_SUFFIX = "/api/brochat/friends/reject-friend-request"
+	CANCEL_FRIEND_REQUEST_URL_SUFFIX = "/api/brochat/friends/cancel-friend-request"
 	UNFRIEND_USER_URL_SUFFIX         = "/api/brochat/friends/unfriend"
 	GET_ROOMS_URL_SUFFIX             = "/api/brochat/rooms"
 	CREATE_ROOM_URL_SUFFIX           = "/api/brochat/rooms"
