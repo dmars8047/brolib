@@ -76,37 +76,10 @@ type FriendRequestRecievedEvent struct {
 	RequestedUser UserInfo `json:"requested_user"`
 }
 
-// Represents an event where a user accepts a friend request from another user.
-type FriendRequestAcceptedEvent struct {
-	// The user that accepted the friend request.
-	InitiatingUser UserInfo `json:"initiating_user"`
-	// The user that sent the friend request.
-	AcceptingUser UserInfo `json:"accepting_user"`
-	// The ID of the channel for direct message communication between the users.
-	DirectMessageChannel string `json:"direct_message_channel"`
-}
-
 type ChannelUpdatedEvent struct {
 	// The ID of the channel that was updated.
 	ChannelId string `json:"channel_id"`
 }
-
-type UserOnlinStatusChangedEvent struct {
-	// The ID of the user that changed status.
-	UserId string `json:"user_id"`
-	// The new status of the user.
-	IsOnline bool `json:"is_online"`
-}
-
-// An event that indicates that a room has been deleted.
-type RoomDeletedEvent struct {
-	// The ID of the room that was deleted.
-	RoomId string `json:"room_id"`
-}
-
-// ********************
-// User Profile Feed Message Events
-// ********************
 
 // User profile event for FEED_MESSAGE_TYPE_USER_ROOM_UPDATED
 type UserRoomsUpdatedEvent struct {

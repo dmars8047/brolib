@@ -52,26 +52,18 @@ const (
 type FeedMessageType string
 
 const (
-	// Chat message type
+	// Chat message request type. This represents a raw chat message coming from the user.
 	FEED_MESSAGE_TYPE_CHAT_MESSAGE_REQUEST FeedMessageType = "brochat:feed_message_type:chat_message_request"
-	// Set active channel message type
+	// Set active channel message type. This represents when a user has navigated to a new channel or away from a channel.
 	FEED_MESSAGE_TYPE_SET_ACTIVE_CHANNEL_REQUEST FeedMessageType = "brochat:feed_message_type:set_active_channel_request"
-	// User online message type
-	FEED_MESSAGE_TYPE_USER_ONLINE_STATUS_UPDATED_EVENT FeedMessageType = "brochat:feed_message_type:user_online_status_updated_event"
-	// Chat notification message type
+	// Chat notification message type. This is just a notification of the event. It does not contain the content of the chat message.
 	FEED_MESSAGE_TYPE_CHAT_NOTIFICATION FeedMessageType = "brochat:feed_message_type:chat_notification"
-	// Chat message message type
+	// Chat message message type. Represents a processed chat message ready to be shown to users.
 	FEED_MESSAGE_TYPE_CHAT_MESSAGE FeedMessageType = "brochat:feed_message_type:chat_message"
-	// Friend Request accepted type
-	FEED_MESSAGE_TYPE_FRIEND_REQUEST_ACCEPTED FeedMessageType = "brochat:feed_message_type:friend_request_accepted"
-	// Room created message type
-	FEED_MESSAGE_TYPE_ROOM_CREATED FeedMessageType = "brochat:feed_message_type:room_created"
 	// The feed message indicating that a channel has been updated.
 	FEED_MESSAGE_TYPE_CHANNEL_UPDATED FeedMessageType = "brochat:feed_message_type:channel_updated"
-	// The feed message that represents a macro request
+	// The feed message that represents a macro request. This is a special kind of chat message that runs some logic to generate/format the chat message content.
 	FEED_MESSAGE_TYPE_MACRO_REQUEST FeedMessageType = "brochat:feed_message_type:macro_request"
-	// The feed message type that represents a room deletion event.
-	FEED_MESSAGE_TYPE_ROOM_DELETED FeedMessageType = "brochat:feed_message_type:room_deleted"
 	// The feed message type that represents an event where a room (or rooms) a user belongs to has been updated.
 	FEED_MESSAGE_TYPE_USER_ROOMS_UPDATED FeedMessageType = "brochat:feed_message_type:user_rooms_updated"
 	// The feed message type that represents an event where a user has been added to a room (or rooms).
