@@ -76,6 +76,8 @@ const (
 	FEED_MESSAGE_TYPE_USER_RELATIONSHIPS_ADDED FeedMessageType = "brochat:feed_message_type:user_relationships_added"
 	// The feed message type that represents an event where a user relationship (or relationships) has been removed.
 	FEED_MESSAGE_TYPE_USER_RELATIONSHIPS_REMOVED FeedMessageType = "brochat:feed_message_type:user_relationships_removed"
+	// User online message type. This represents when a user's online status has changed.
+	FEED_MESSAGE_TYPE_USER_ONLINE_STATUS_UPDATED_EVENT FeedMessageType = "brochat:feed_message_type:user_online_status_updated_event"
 )
 
 // BroChatResponseCode is a numeric representation of the error code returned by the BroChat API.

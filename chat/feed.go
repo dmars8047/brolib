@@ -2,6 +2,7 @@ package chat
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Acts as an envelope for broadcasted messages
@@ -123,4 +124,14 @@ type UserRelationshipsRemovedEvent struct {
 	UserIds []string `json:"user_id"`
 	// The reason the relationship was removed.
 	Reason string `json:"reason"`
+}
+
+// Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_USER_ONLINE_STATUS_CHANGE.
+type UserOnlineStatusChangeEvent struct {
+	// The ID of the user that changed status.
+	UserId string `json:"user_id"`
+	// The new status of the user.
+	IsOnline bool `json:"is_online"`
+	// The time the event occured
+	TimeStamp time.Time `json:"timestamp"`
 }
