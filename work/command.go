@@ -1,7 +1,6 @@
 package work
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/dmars8047/brolib/chat"
@@ -26,48 +25,6 @@ const (
 	// A command that instructs the recipient to process a users online status change
 	COMMAND_TYPE_PROCESS_USER_ONLINE_STATUS_CHANGE CommandType = "brochat:command_type:process_online_status_change"
 )
-
-// Acts as an envelope for broadcasted messages
-type Command struct {
-	// The type of message
-	Type CommandType `json:"type"`
-	// Content type. Details how the content content should be parsed.
-	ContentType string `json:"content_type"`
-	// The message data
-	Content []byte `json:"content"`
-}
-
-// Creates a new FeedMessage. Sets the content as marshaled json bytes and sets the appropriate JSON content type.
-func NewCommand(commandType CommandType, command interface{}) (*Command, error) {
-	commandBytes, err := json.Marshal(command)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &Command{
-		ContentType: "application/json",
-		Content:     commandBytes,
-		Type:        commandType,
-	}, nil
-}
-
-// Helper function to wrap any struct as a command ready to be published and recieved by consuming workers.
-func NewCommandBytes(messageType CommandType, payload interface{}) ([]byte, error) {
-	message, err := NewCommand(messageType, payload)
-
-	if err != nil {
-		return nil, err
-	}
-
-	contentBytes, err := json.Marshal(message)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return contentBytes, nil
-}
 
 // Contains all necessary data to process a command of type COMMAND_TYPE_SAVE_CHAT_MESSAGE.
 type SaveChatMessageCommand struct {
