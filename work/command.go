@@ -61,7 +61,8 @@ type ProcessFriendRequestAcceptanceCommand struct {
 // Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_ROOM_DELETION.
 type ProcessRoomDeletionCommand struct {
 	// The ID of the room that was deleted.
-	RoomId string `json:"room_id"`
+	RoomId    string `json:"room_id"`
+	ChannelId string `json:"channel_id"`
 }
 
 // Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_USER_ONLINE_STATUS_CHANGE.
