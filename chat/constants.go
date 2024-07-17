@@ -44,7 +44,7 @@ type RoomMembershipModel string
 
 const (
 	// The owner's friends will be allowed to join the room.
-	FRIENDS_MEMBERSHIP_MODEL RoomMembershipModel = "friends"
+	// FRIENDS_MEMBERSHIP_MODEL RoomMembershipModel = "friends_only"
 	// The room is public. Anyone can join.
 	PUBLIC_MEMBERSHIP_MODEL RoomMembershipModel = "public"
 )
