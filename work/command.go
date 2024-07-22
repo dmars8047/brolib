@@ -53,3 +53,11 @@ type ProcessUserOnlineStatusChange struct {
 	// The time the event occured
 	TimeStamp time.Time `json:"timestamp"`
 }
+
+// Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_CHANNEL_MANIFEST_CHANGE
+type ProcessChannelManifestChange struct {
+	// The channel that the change pertains to.
+	ChannelId string `json:"channel_id"`
+	// The reason/cause of the update.
+	Reason string `json:"reason"`
+}
