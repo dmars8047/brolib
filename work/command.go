@@ -14,16 +14,14 @@ const (
 type CommandType string
 
 const (
-	// A command that instructs the recipient to perform post room creation processing.
-	COMMAND_TYPE_PROCESS_ROOM_CREATION CommandType = "brochat:command_type:process_room_creation"
-	// A command that instructs the recipient to perform post friend request acceptance processing.
-	COMMAND_TYPE_PROCESS_FRIEND_REQUEST_ACCEPTANCE CommandType = "brochat:command_type:process_friend_request_acceptance"
 	// A command that instructs the recipient to perform post room deletion processing.
 	COMMAND_TYPE_PROCESS_ROOM_DELETION CommandType = "brochat:command_type:process_room_deletion"
 	// A command that instructs the recipient to save a chat message.
 	COMMAND_TYPE_SAVE_CHAT_MESSAGE CommandType = "brochat:command_type:save_chat_message"
 	// A command that instructs the recipient to process a users online status change
 	COMMAND_TYPE_PROCESS_USER_ONLINE_STATUS_CHANGE CommandType = "brochat:command_type:process_online_status_change"
+	// A command that instructs the recipient to process a change to a channel manifest
+	COMMAND_TYPE_PROCESS_CHANNEL_MANIFEST_CHANGE CommandType = "brochat:command_type:process_channel_manifest_change"
 )
 
 // Contains all necessary data to process a command of type COMMAND_TYPE_SAVE_CHAT_MESSAGE.
@@ -38,24 +36,6 @@ type SaveChatMessageCommand struct {
 	Content string `json:"content"`
 	// The time that the message was sent.
 	RecievedAtUtc time.Time `json:"recieved_at_utc"`
-}
-
-// Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_ROOM_CREATION.
-type ProcessRoomCreationCommand struct {
-	// The room that was created.
-	Room chat.Room `json:"room"`
-	// Users to be added to the underlying channel.
-	UsersToBeAdded []string `json:"users_to_be_added"`
-}
-
-// Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_FRIEND_REQUEST_ACCEPTANCE.
-type ProcessFriendRequestAcceptanceCommand struct {
-	// The user that accepted the friend request.
-	InitiatingUser chat.UserInfo `json:"initiating_user"`
-	// The user that sent the friend request.
-	AcceptingUser chat.UserInfo `json:"accepting_user"`
-	// The ID of the channel for direct message communication between the users.
-	DirectMessageChannel string `json:"direct_message_channel"`
 }
 
 // Contains all necessary data to process a command of type COMMAND_TYPE_PROCESS_ROOM_DELETION.
