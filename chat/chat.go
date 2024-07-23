@@ -55,6 +55,17 @@ type UserInfo struct {
 	LastOnlineUtc time.Time `json:"last_online_utc"`
 }
 
+type ChannelUser struct {
+	// The user's Id. This is the same as the Id in the idam service.
+	Id string `json:"id"`
+	// The user's username.
+	Username string `json:"username"`
+	// When the user was last online
+	LastOnlineUtc time.Time `json:"last_online_utc"`
+	// A flag indicating if the user has been removed from the channel for whatever reason (they left, were kicked, banned, deleted, etc) but they remain in the manifest for historical purposes.
+	Archived bool `json:"archived"`
+}
+
 // A Channel represents a communication channel between two or more users.
 type Channel struct {
 	// The Id of the channel.
@@ -62,7 +73,7 @@ type Channel struct {
 	// The type of the channel.
 	Type ChannelType `json:"type"`
 	// The users that are members of the channel. This is a list of user info.
-	Users []UserInfo `json:"users"`
+	Users []ChannelUser `json:"users"`
 }
 
 type InviteUserToRoomRequest struct {
