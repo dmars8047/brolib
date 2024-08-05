@@ -16,6 +16,8 @@ const (
 	DELETE_ROOM_URL_SUFFIX           = "/api/brochat/rooms/:roomId"
 	JOIN_ROOM_URL_SUFFIX             = "/api/brochat/rooms/:roomId/join"
 	LEAVE_ROOM_URL_SUFFIX            = "/api/brochat/rooms/:roomId/leave"
+	UPLOAD_PROFILE_PICTURE_SUFFIX    = "/api/media/profile-picture"
+	UPLOAD_CHANNEL_FILE_SUFFIX       = "/api/media/channel/:channelId"
 )
 
 type RelationshipType uint8
