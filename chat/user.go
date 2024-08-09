@@ -7,8 +7,8 @@ type User struct {
 	Id string `json:"id"`
 	// The user's username. This is the same as the username.
 	Username string `json:"username"`
-	// Profile picture URL
-	ProfilePictureUrl string `json:"profile_picture_url"`
+	// Profile picture. Its the name of the file as it exists on the media server.
+	ProfilePicture string `json:"profile_picture"`
 	// The users relationships list.
 	Relationships []UserRelationship `json:"relationships"`
 	// Rooms that the user owns or is a member of
@@ -24,8 +24,8 @@ type UserInfo struct {
 	Id string `json:"id"`
 	// The user's username.
 	Username string `json:"username"`
-	// Profile picture URL
-	ProfilePictureUrl string `json:"profile_picture_url"`
+	// Profile picture. Its the name of the file as it exists on the media server.
+	ProfilePicture string `json:"profile_picture"`
 	// When the user was last online
 	LastOnlineUtc time.Time `json:"last_online_utc"`
 }
