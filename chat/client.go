@@ -95,7 +95,7 @@ func NewBroChatClient(httpClient *http.Client, baseUrl string) *BroChatClient {
 }
 
 // GetUser returns a user by their ID.
-func (c *BroChatClient) GetUser(accessToken string, userId string) BroChatClientContentResult[User] {
+func (c *BroChatClient) GetUser(accessToken string) BroChatClientContentResult[User] {
 	url, err := buildUrl(c.baseUrl, GET_USER_URL_SUFFIX)
 
 	if err != nil {
@@ -134,6 +134,48 @@ func (c *BroChatClient) GetUser(accessToken string, userId string) BroChatClient
 	}
 
 	return makeBroChatClientContentResult(BROCHAT_RESPONSE_CODE_SUCCESS, user)
+}
+
+func (c *BroChatClient) UpdateUser(accessToken string, request UpdateUserRequest) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, UPDATE_USER_URL_SUFFIX)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	requestBodyBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewReader(requestBodyBytes))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// add authorization header to the req
+	req.Header.Set("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return handleHttpRequestError(err)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
 }
 
 // GetUsersOption is a type for the options that can be passed to the GetUsers method.

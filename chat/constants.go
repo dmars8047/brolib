@@ -2,6 +2,7 @@ package chat
 
 const (
 	GET_USER_URL_SUFFIX              = "/api/brochat/user"
+	UPDATE_USER_URL_SUFFIX           = "/api/brochat/user"
 	GET_USERS_URL_SUFFIX             = "/api/brochat/users"
 	GET_CHANNEL_URL_SUFFIX           = "/api/brochat/channels/:channelId"
 	GET_CHANNEL_MESSAGES_URL_SUFFIX  = "/api/brochat/channels/:channelId/messages"
@@ -16,8 +17,7 @@ const (
 	DELETE_ROOM_URL_SUFFIX           = "/api/brochat/rooms/:roomId"
 	JOIN_ROOM_URL_SUFFIX             = "/api/brochat/rooms/:roomId/join"
 	LEAVE_ROOM_URL_SUFFIX            = "/api/brochat/rooms/:roomId/leave"
-	UPLOAD_PROFILE_PICTURE_SUFFIX    = "/api/brochat/media/profile-picture"
-	UPLOAD_CHANNEL_FILE_SUFFIX       = "/api/brochat/media/channel/:channelId"
+	UPLOAD_FILE_SUFFIX               = "/api/brochat/media/upload"
 )
 
 type RelationshipType uint8
