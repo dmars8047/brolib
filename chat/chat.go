@@ -25,6 +25,8 @@ type UserRelationship struct {
 	DirectMessageChannelId string `json:"direct_message_channel_id"`
 	// Username of the user the relationship is with
 	Username string `json:"username"`
+	// Profile picture. Its the name of the file as it exists on the media server.
+	ProfilePicture string `json:"profile_picture"`
 	// When the user was last online
 	LastOnlineUtc time.Time `json:"last_online_utc"`
 	// IsOnline is true if the user is online
