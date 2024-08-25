@@ -470,6 +470,92 @@ func (c *BroChatClient) AcceptFriendRequest(accessToken string, request AcceptFr
 	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
 }
 
+// Unfriend removes a friendship between two users.
+func (c *BroChatClient) Unfriend(accessToken string, request UnfriendRequest) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, UNFRIEND_USER_URL_SUFFIX)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	requestBodyBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewReader(requestBodyBytes))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// add authorization header to the req
+	req.Header.Add("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return handleHttpRequestError(err)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
+}
+
+// CancelFriendRequest removes a friendship between two users.
+func (c *BroChatClient) CancelFriendRequest(accessToken string, request CancelFriendRequestRequest) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, CANCEL_FRIEND_REQUEST_URL_SUFFIX)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	requestBodyBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewReader(requestBodyBytes))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// add authorization header to the req
+	req.Header.Add("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return handleHttpRequestError(err)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
+}
+
 // GetRooms returns a list of rooms.
 func (c *BroChatClient) GetRooms(accessToken string) BroChatClientContentResult[[]Room] {
 	url, err := buildUrl(c.baseUrl, GET_ROOMS_URL_SUFFIX)
@@ -616,6 +702,84 @@ func (c *BroChatClient) JoinRoom(accessToken string, roomId string) BroChatClien
 
 	// Create a new request using http
 	req, err := http.NewRequest(http.MethodPut, url, nil)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Set authorization header to the req
+	req.Header.Set("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		if err, ok := err.(net.Error); ok && err.Timeout() {
+			// If it was a timeout error
+			return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_CONNECTION_TIMEOUT_ERROR)
+		}
+
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_GENERIC_CONNECTION_ERROR)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
+}
+
+// LeaveRoom removes a user from a room.
+func (c *BroChatClient) LeaveRoom(accessToken string, roomId string) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, strings.Replace(LEAVE_ROOM_URL_SUFFIX, ":roomId", roomId, 1))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, url, nil)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Set authorization header to the req
+	req.Header.Set("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		if err, ok := err.(net.Error); ok && err.Timeout() {
+			// If it was a timeout error
+			return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_CONNECTION_TIMEOUT_ERROR)
+		}
+
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_GENERIC_CONNECTION_ERROR)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
+}
+
+// DeleteRoom removes deletes a room. Only the owner of the room can delete a room.
+func (c *BroChatClient) DeleteRoom(accessToken string, roomId string) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, strings.Replace(DELETE_ROOM_URL_SUFFIX, ":roomId", roomId, 1))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodDelete, url, nil)
 
 	if err != nil {
 		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)

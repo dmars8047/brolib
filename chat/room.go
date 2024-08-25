@@ -7,6 +7,8 @@ type Room struct {
 	Id string `json:"id"`
 	// The name of the room
 	Name string `json:"name"`
+	// Image. Its the name of the file as it exists on the media server.
+	Image string `json:"image"`
 	// The description of the room
 	Description string `json:"description"`
 	// The rooms channel ID
@@ -22,6 +24,8 @@ type Room struct {
 type CreateRoomRequest struct {
 	// The name of the room
 	Name string `json:"name"`
+	// Image. Its the name of the file as it exists on the media server.
+	Image string `json:"image"`
 	// The description of the room
 	Description string `json:"description"`
 	// The membership model that the room uses
@@ -33,4 +37,6 @@ type UpdateRoomRequest struct {
 	Name string `json:"name"`
 	// The description of the room
 	Description string `json:"description"`
+	// Image. Its the name of the file as it exists on the media server.
+	Image string `json:"image"`
 }
