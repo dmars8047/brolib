@@ -556,6 +556,49 @@ func (c *BroChatClient) CancelFriendRequest(accessToken string, request CancelFr
 	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
 }
 
+// RejectFriendRequest removes a friendship between two users.
+func (c *BroChatClient) RejectFriendRequest(accessToken string, request RejectFriendRequestRequest) BroChatClientResult {
+	url, err := buildUrl(c.baseUrl, REJECT_FRIEND_REQUEST_URL_SUFFIX)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_INVALID_HOST_ADDRESS)
+	}
+
+	requestBodyBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// Create a new request using http
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewReader(requestBodyBytes))
+
+	if err != nil {
+		return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_REQUEST_FORMATTING_ERROR)
+	}
+
+	// add authorization header to the req
+	req.Header.Add("Authorization", fmt.Sprintf("%s %s", defaultTokenType, accessToken))
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send req using http Client
+	res, err := c.httpClient.Do(req)
+
+	if err != nil {
+		return handleHttpRequestError(err)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusNoContent {
+		return handleUnsuccessfulStatusCode(res)
+	}
+
+	return makeBroChatClientResult(BROCHAT_RESPONSE_CODE_SUCCESS)
+}
+
 // GetRooms returns a list of rooms.
 func (c *BroChatClient) GetRooms(accessToken string) BroChatClientContentResult[[]Room] {
 	url, err := buildUrl(c.baseUrl, GET_ROOMS_URL_SUFFIX)
